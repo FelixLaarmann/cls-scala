@@ -161,7 +161,7 @@ object LabyrinthBenchmarkBFCL extends App {
 
       import movementScripting._
       import movementScripting.syntax._
-      lazy val request: Formula = :?:(tgt) :&&: :!!:(:?:(Seen(intToType(1), intToType(1))))
+      lazy val request: Formula = :?:(tgt) :/\: :~:(:?:(Seen(intToType(1), intToType(1))))
 
       lazy val movementInhabitationResult = movementScripting.Formula.eval[String](request)
 
@@ -180,7 +180,7 @@ object LabyrinthBenchmarkBFCL extends App {
       import singleMovementScripting._
       import singleMovementScripting.syntax._
 
-      lazy val request2: Formula = :?:(tgt) :&&: (:!!:(:?:(Seen(intToType(1), intToType(1)))))
+      lazy val request2: Formula = :?:(tgt) :/\: (:~:(:?:(Seen(intToType(1), intToType(1)))))
 
       lazy val singleMovementInhabitationResult = singleMovementScripting.Formula.eval[String](request2)
 

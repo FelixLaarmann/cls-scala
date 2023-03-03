@@ -62,19 +62,12 @@ case class BooleanQuery[R](gamma : ReflectedRepository[R]) {
     val formula: Formula
 
     /** The intersection of `ty` and `other`  */
-    def :&&:(other: Formula): Formula =
+    def :/\:(other: Formula): Formula =
       Intersection(other, formula)
 
     /** The union of `ty` and `other` */
-    def :||:(other: Formula): Formula =
+    def :\/:(other: Formula): Formula =
       Union(formula, other)
-/*
-    /** The complement of `ty` */
-    def <!>(): Formula =
-      Negation(formula)
-
-
- */
   }
 
 
@@ -86,7 +79,7 @@ case class BooleanQuery[R](gamma : ReflectedRepository[R]) {
   }
 
   object syntax extends ToFormulaSyntax {
-    def :!!:(formula : Formula): Formula =
+    def :~:(formula : Formula): Formula =
       Negation(formula)
 
     def :?:(request : Type): Formula =
