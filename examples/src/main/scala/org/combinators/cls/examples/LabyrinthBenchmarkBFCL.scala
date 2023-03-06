@@ -127,15 +127,6 @@ object LabyrinthBenchmarkBFCL extends App {
     val semanticType: Type = singleMove(row, col, 0, 0, 0, 1)
   }
 
-
-  def time[R](block: => R): R = {
-    val t0 = System.nanoTime()
-    val result = block // call-by-name
-    val t1 = System.nanoTime()
-    println("Elapsed time: " + (t1 - t0) / 1000000 + "ms")
-    result
-  }
-
   val tgt = Pos(intToType(goal._1), intToType(goal._2))
   println(s"|- ? : $tgt")
 
@@ -154,9 +145,14 @@ object LabyrinthBenchmarkBFCL extends App {
     lazy val repo = rep.addCombinator(UpC(rc._1, rc._2)).addCombinator(DownC(rc._1, rc._2)).addCombinator(LeftC(rc._1, rc._2)).addCombinator(RightC(rc._1, rc._2))
     if (isFree(rc._1, rc._2)) repo.addCombinator(PosAt(rc._1, rc._2)) else repo
   })
-
-  def test1 = {
-    time {
+  def time[R](block: => R): R = {
+    val t0 = System.nanoTime()
+    val result = block // call-by-name
+    val t1 = System.nanoTime()
+    println("Elapsed time: " + (t1 - t0) / 1000000 + "ms")
+    result
+  }
+  def test1(): Unit = time {
       val movementScripting = BooleanQuery[MovementRepository](reflectedMovementGamma)
 
       import movementScripting._
@@ -171,18 +167,17 @@ object LabyrinthBenchmarkBFCL extends App {
       println(enumMovement.index(1))
       println(enumMovement.index(2))
     }
-  }
-  def test2 = {
-    time {
+
+  def test2(): Unit = time {
       val singleMovementScripting = BooleanQuery[SingleMovementRepository](reflectedSingleMovementGamma)
 
 
       import singleMovementScripting._
       import singleMovementScripting.syntax._
 
-      lazy val request2: Formula = :?:(tgt) :/\: (:~:(:?:(Seen(intToType(1), intToType(1)))))
+      lazy val request: Formula = :?:(tgt) :/\: (:~:(:?:(Seen(intToType(1), intToType(1)))))
 
-      lazy val singleMovementInhabitationResult = singleMovementScripting.Formula.eval[String](request2)
+      lazy val singleMovementInhabitationResult = singleMovementScripting.Formula.eval[String](request)
 
       lazy val enumSingleMovement = singleMovementInhabitationResult.interpretedTerms
 
@@ -190,7 +185,6 @@ object LabyrinthBenchmarkBFCL extends App {
       println(enumSingleMovement.index(1))
       println(enumSingleMovement.index(2))
     }
-  }
 
   test1
 

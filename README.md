@@ -7,18 +7,24 @@
 
 This project implements the Combinatory Logic Synthesizer (CL)S framework in Scala.
 
-Existing users please refer to the [CHANGELOG](CHANGELOG.md) for news.
+It is a fork of the original [cls-scala Framework](https://github.com/combinators/cls-scala), extending it with a Boolean Query Language.
+
+The extension is conservative, since it only adds a new package [queries](src/main/scala/org/combinators/cls/queries) 
+and an updated [labyrinth-example](examples/src/main/scala/org/combinators/cls/examples/LabyrinthBenchmarkBFCL.scala) to showcase the
+new features.
+
+If you just want to get an impression of the new features, the best way would be to clone the repository and open it in an IDE
+like IntelliJ or something similar.
 
 ## Installation
 
-Add the following dependency to your existing sbt project: 
+Clone the repository and run `sbt publishLocal`.
+
+Add the following dependency to your existing sbt project:
 ```scala
 libraryDependencies += "org.combinators" %% "cls-scala" % "<VERSION>"
 ```
 The string `<VERSION>` has to be replaced by the version you want.
-You can search for released versions [here](http://search.maven.org/#search%7Cga%7C1%7Cg%3A%22org.combinators%22%20AND%20a%3A%22cls-scala%22).
-
-To obtain the latest unreleased development version, clone the repository and run `sbt publishLocal`.
 
 Currently, Scala 2.11, 2.12, and 2.13 are supported.
 
@@ -27,24 +33,4 @@ Currently, Scala 2.11, 2.12, and 2.13 are supported.
 Can be found in the [examples project](examples/src/main/scala/org/combinators/cls/examples) and 
 the [tests](src/test/scala/org/combinators/cls).
 
-##### Got a new example?
-If it is contained within one file, consider adding it to ours: 
-join the [chat](https://gitter.im/combinators/cls-scala) or just open a pull request.
 
-## Help and Contributions
-
-Join [combinators/cls-scala](https://gitter.im/combinators/cls-scala) on Gitter.
-
-### Main Authors
-
-- Jan Bessai
-- Boris Düdder
-- George T. Heineman
-- Anna Vasileva
-
-### Contributers
-
--
-##### Your name here?
-Just the usual: open pull requests and or issues.
-Feel free to add yourself to the list in this file, if you contributed something.

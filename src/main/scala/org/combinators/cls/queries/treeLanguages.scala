@@ -334,8 +334,6 @@ trait NFTA[Q]{
   def prettyPrintTransitions[T](trans : Set[NFTAtransition[T]]) : String = trans.foldLeft("transitions = {")((s, t) => s + t.symbol.toString +
     t.fromStates.foldLeft("(")((s, q) => s + q.toString + ", ") + ") --> " + t.target.toString + "; ") + "}"
 
-
-
   def step(tree : Tree[Q]) : Set[Q] = tree match {
     case ApplyT(function, argument) =>
       val applicableTransitions = transitions.filter(_.symbol == ApplyS())
@@ -421,7 +419,7 @@ trait NFTA[Q]{
   }
 
   def complete(f : Q => Type) : NFTA[Type] = {
-    val dead  : Type = Omega //Constructor("dead") //fresh name required, but Omega could also be ok...
+    val dead  : Type = Omega //not Constructor("dead"), because a fresh name is required. But Omega is also ok...
     val newQ : Set[Type] = states.map(f) + dead
     val binArgs : Set[List[Type]] = for {
       q1 <- newQ
@@ -452,7 +450,7 @@ trait NFTA[Q]{
       val preNewSymbols : Set[Symbol] = gamma.keys.toSet.map(CombinatorS)
       preNewSymbols.--(symbols)
     }
-    val dead: Type = Omega //Constructor("dead") //fresh name required, but Omega could also be ok...
+    val dead: Type = Omega //not Constructor("dead"), because a fresh name is required. But Omega is also ok...
     val newQ: Set[Type] = Set(dead) ++ states.map(f)
     val binArgs: Set[List[Type]] = for {
         q1 <- newQ
